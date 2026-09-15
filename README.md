@@ -109,6 +109,4 @@ postgresql/
 - PostgreSQL
 - Python 3
 
-## 📄 Licença
 
-Defina aqui a licença do seu projeto (ex: MIT, GPL, etc.).
