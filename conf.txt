@@ -1,0 +1,65 @@
+
+
+A ordem correta (o que você já fez, na prática)
+Docker Compose rodando o Postgres (e o pgAdmin) → banco de dados disponível na porta 5432
+Criar o venv → ambiente isolado para as bibliotecas Python
+Ativar o venv → source venv/bin/activate
+Instalar as dependências Python dentro do venv → pip install pandas psycopg2-binary sqlalchemy
+Rodar o script Python → ele se conecta ao Postgres via rede (não via Docker diretamente)
+Resumindo com a analogia
+Docker = a "casa" onde mora o banco de dados (Postgres)
+venv = a "caixa de ferramentas" isolada que você usa no seu computador para escrever e rodar o script Python
+Eles não se "reconhecem" um ao outro diretamente — o script Python só bate na porta da casa (localhost:5432) usando as credenciais que você configurou
+
+Faz sentido agora? Se você realmente pretende usar MySQL em vez de Postgres (talvez para outro projeto/curso), me avisa que te ajudo a ajustar o docker-compose.yml e o driver Python certo para isso.
+
+
+=================
+
+Sim, exatamente — essa é a regra geral. Toda vez que você for **instalar bibliotecas Python** (como `pandas`, `psycopg2`, `sqlalchemy`, etc.) para rodar um script, você deve:
+
+1. Ativar o venv daquele projeto: `source venv/bin/activate`
+2. Só depois instalar (`pip install ...`) ou rodar o script (`python3 script.py`)
+
+## Por quê usar venv sempre
+
+- Evita o erro `externally-managed-environment` que você teve.
+- Mantém cada projeto com suas próprias versões de bibliotecas, sem conflito entre projetos diferentes (ex: um projeto pode precisar do pandas 2.0 e outro do pandas 1.5).
+- É a prática padrão da comunidade Python hoje em dia — praticamente todo tutorial, curso ou repositório GitHub espera que você use venv (ou uma ferramenta equivalente).
+
+## Um detalhe importante: venv é por projeto, não único para a vida toda
+
+Você não precisa criar um venv novo pra cada script individual — o ideal é **um venv por projeto** (ou por pasta de projeto). Por exemplo:
+
+```
+Curso-Completo-de-SQL/
+├── venv/              ← um venv só, pra esse projeto inteiro
+├── scripts/
+│   ├── insert_data.py
+│   ├── outro_script.py
+│   └── mais_um_script.py
+└── data/
+```
+
+Todos os scripts dentro de `scripts/` podem usar o mesmo venv da raiz do projeto, sem precisar recriar nada.
+
+## Fluxo resumido que você vai repetir sempre
+
+```bash
+# 1. Entrar na pasta do projeto
+cd Curso-Completo-de-SQL
+
+# 2. Ativar o venv (se já existir)
+source venv/bin/activate
+
+# 3. Rodar quantos scripts quiser
+python3 scripts/insert_data.py
+python3 scripts/outro_script.py
+
+# 4. Quando terminar de trabalhar, desativar (opcional)
+deactivate
+```
+
+Só recria o venv (`python3 -m venv venv`) se: começar um projeto novo, ou se o venv atual se corromper/for apagado por engano.
+
+
