@@ -51,13 +51,8 @@ docker ps
 
 ### 4. Testar a conexão com o banco
 
-Use as credenciais definidas no `docker-compose.yml` para testar o acesso:
+💡 Use as credenciais definidas no `docker-compose.yml` para testar o acesso:
 
-```bash
-docker exec -it <nome_do_container> psql -U <usuario> -d <nome_do_banco>
-```
-
-> 💡 Substitua `<nome_do_container>`, `<usuario>` e `<nome_do_banco>` pelos valores configurados no seu `docker-compose.yml`.
 
 ### 5. Habilitar o ambiente virtual Python (venv)
 
@@ -72,6 +67,11 @@ Instale as dependências do projeto (se houver um `requirements.txt`):
 
 ```bash
 pip install -r requirements.txt
+```
+Instale as dependências do pacote python pandas
+
+```bash
+pip install pandas
 ```
 
 ### 6. Gerar e inserir os dados
